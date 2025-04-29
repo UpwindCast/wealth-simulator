@@ -46,7 +46,7 @@ if submitted:
             st.error("❗ Check your custom withdrawals format. Example: 2026-01-01: 5000, 2029-07-01: 20000")
 
     # Setup
-    dates = pd.date_range(start=start_date, end=end_date, freq='MS')  # Monthly start of month
+    dates = pd.date_range(start=start_date, end=end_date, freq='MS')  # Monthly
     balance = starting_balance
     balances = []
     contributions = []
@@ -93,7 +93,14 @@ if submitted:
 
     # --- Plotly Chart ---
     fig = go.Figure()
-    fig.add_trace(go.Scatter(x=dates, y=balances, mode='lines', name="Portfolio Value", line=dict(width=3)))
+    fig.add_trace(go.Scatter(
+        x=[d.strftime('%m/%d/%Y') for d in dates],
+        y=balances,
+        mode='lines',
+        name="Portfolio Value",
+        line=dict(width=3)
+    ))
+
     fig.update_layout(
         title="Portfolio Value Over Time",
         xaxis_title="Date",
@@ -106,8 +113,8 @@ if submitted:
 
     # --- Summary Table ---
     summary = {
-        "Start Date": [start_date],
-        "End Date": [end_date],
+        "Start Date": [start_date.strftime('%m/%d/%Y')],
+        "End Date": [end_date.strftime('%m/%d/%Y')],
         "Final Balance ($)": [round(balances[-1], 2)],
         "Starting Contribution ($)": [round(contributions[0], 2)],
         "Annual Return (%)": [annual_return],
@@ -122,7 +129,7 @@ if submitted:
 
     # --- Download CSV ---
     df = pd.DataFrame({
-        "Date": dates,
+        "Date": [d.strftime('%m/%d/%Y') for d in dates],
         "Portfolio Value ($)": balances,
         "Contribution ($)": contributions,
         "Routine Withdrawal ($)": routine_wds,
