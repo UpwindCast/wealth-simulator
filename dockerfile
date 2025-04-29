@@ -20,4 +20,4 @@ COPY . .
 EXPOSE 8050
 
 # Run the Dash app
-CMD ["python", "wealth_simulator.py"]
+CMD ["python", "wealth-simulator.py"]
