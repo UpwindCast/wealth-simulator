@@ -239,4 +239,5 @@ def update_dashboard(n_clicks, starting_balance, monthly_contribution, contribut
     return fig1, fig2, summary, download_link
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run(debug=True)
+
